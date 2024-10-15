@@ -224,3 +224,76 @@ WHERE ENAME LIKE '%E%' AND DEPTNO = 30 AND SAL NOT BETWEEN 1000 AND 2000;
 -- L이 아닌 사원의 모든 정보 출력하기
 SELECT * FROM EMP
 WHERE COMM IS NULL AND MGR IS NOT NULL AND JOB IN ('MANAGER','CLERK') AND ENAME NOT LIKE '_L%';
+
+-- SELECT 연습 문제 --
+-- 1. EMP 테이블에서 COMM 의 값이 NULL 이 아닌 정보 조회
+SELECT * FROM EMP
+WHERE COMM IS NOT NULL;
+
+-- 2. EMP 테이블에서 커미션을 받지 못하는 직원 조회
+SELECT * FROM EMP
+WHERE COMM = 0;
+
+-- 3. EMP 테이블에서 관리자가 없는 정보 직원 조회
+SELECT * FROM EMP
+WHERE MGR IS NULL;
+
+-- 4. EMP 테이블에서 급여를 많이 받는 직원 순으로 조회
+SELECT * FROM EMP
+ORDER BY SAL DESC;
+
+-- 5. EMP 테이블에서 급여가 같을 경우 커미션을 내림차순 정렬 조회
+SELECT * FROM EMP
+ORDER BY SAL DESC, COMM DESC;
+
+-- 6. EMP 테이블에서 사원번호, 사원명, 직급, 입사일 조회 (단, 입사일을 오름차순 정렬 처리)
+SELECT EMPNO, ENAME, JOB, HIREDATE FROM EMP
+ORDER BY HIREDATE ASC;
+
+-- 7. EMP 테이블에서 사원번호, 사원명 조회 (사원번호 기준 내림차순 정렬)
+SELECT EMPNO, ENAME FROM EMP
+ORDER BY EMPNO DESC;
+
+-- 8. EMP 테이블에서 사번, 입사일, 사원명, 급여 조회 (부서번호가 빠른 순으로, 같을 시 최근 입사일 순)
+SELECT EMPNO, HIREDATE, ENAME, SAL FROM EMP
+ORDER BY DEPTNO, HIREDATE DESC;
+
+-- 9. 오늘 날짜에 대한 정보 조회
+SELECT SYSDATE 
+FROM dual;
+
+-- 10. EMP 테이블에서 사번, 사원명, 급여 조회
+SELECT EMPNO, ENAME, SAL FROM EMP;
+
+-- 11. EMP 테이블에서 사원번호가 홀수인 사원 조회
+
+-- 12. EMP 테이블에서 사원명, 입사일 조회
+SELECT ENAME, HIREDATE FROM EMP;
+
+-- 13. EMP 테이블에서 9월에 입사한 직원의 정보 조회
+SELECT * FROM EMP
+WHERE EXTRACT (MONTH FROM HIREDATE) = 9;
+
+-- 14. EMP 테이블에서 81년도에 입사한 직원 조회
+SELECT * FROM EMP
+WHERE HIREDATE BETWEEN '1981-01-01' AND '1981-12-31';
+
+SELECT * FROM EMP
+WHERE EXTRACT (YEAR FROM HIREDATE) = 1981;
+
+-- 15. EMP 테이블에서 이름이 'E'로 끝나는 직원 조회
+SELECT * FROM EMP
+WHERE ENAME LIKE '%E';
+
+-- 16. EMP 테이블에서 이름의 세번재 글자가 'R'인 직원의 정보 조회
+SELECT * FROM EMP
+WHERE ENAME LIKE '__R%';
+
+-- 17. EMP 테이블에서 사번, 사원명, 입사일, 입사일로부터 40년 되는 날짜 조회
+SELECT EMPNO, ENAME, HIREDATE, ADD_MONTHS(HIREDATE, 12*40) FROM EMP; -- 특정 날짜에 개월수를 더해 
+
+-- 18. EMP 테이블에서 입사일로부터 38년 이상 근무한 직원의 정보 조회
+
+-- 19. 오늘 날짜에서 년도만 추출
+SELECT EXTRACT(YEAR FROM SYSDATE)
+FROM DUAL;
