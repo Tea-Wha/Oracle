@@ -169,8 +169,15 @@ SELECT EMPNO, ENAME, SAL FROM EMP
 WHERE SAL > 1000 AND SAL < 2000;
 
 -- 차집합 : MINUS, 중복행에 대한 결과를 하나의 결과로 보여줌
+SELECT EMPNO, ENAME, SAL FROM EMP
+MINUS
+SELECT EMPNO, ENAME, SAL FROM EMP
+WHERE SAL >2000;
 
+SELECT EMPNO, ENAME, SAL FROM EMP
+WHERE SAL <= 2000;
 
+-- 조인 : 두 개 이상의 테이블에서 데이터를 가져와서 연결하는 데 사용하는 SQL의 기능
 
 
 
