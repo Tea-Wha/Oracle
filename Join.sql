@@ -56,7 +56,7 @@ ORDER BY e.DEPTNO;  -- RIGHT OUTER -> 오른쪽 기준 / -- FULL OUTER -> 양쪽
 -- (두 테이블의 동일한 이름이 있는 열을 자동으로 찾아서 조인 해줌)
 SELECT EMPNO, ENAME, DEPTNO, DNAME FROM EMP NATURAL JOIN DEPT
 ORDER BY DEPTNO;
--- 자동으로 걸어준다면 겹치는 부분은 더 이상 누구의 소유가 아니기에 서브쿼리 지정 불가능
+-- 자동으로 걸어준다면 겹치는 부분은 더 이상 누구의 소유가 아니기에 소문자 지정 불가능
 
 -- JOIN ~ USING : 등가 조인을 대신하는 조인 방식
 SELECT e.EMPNO, e.ENAME, e.JOB, DEPTNO, d.DNAME, d.LOC FROM EMP e JOIN DEPT d USING(DEPTNO)
