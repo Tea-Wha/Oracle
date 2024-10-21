@@ -1,0 +1,78 @@
+-- 데이터 사전 : 데이터베이스를 구성하고, 운영하는데 필요한 모든 정보를 저장하는 특수한 테이블을 의미함
+-- 데이터 사전에는 데이터베이스 메모리, 성능, 사용자, 권한, 객체 등등의 정보가 포함됨
+
+-- 테이블과 별개로 작성되지만 테이블에 의존적
+-- 기본키나 유일키와 같은 제약 조건이 지정되면 따로 인덱스를 생성하지 않더라도 해당 키에 대한 인덱스가 자동 생성됨
+
+
+-- 인덱스의 장점 : 검색 속도가 빨라지며, 시스템의 부하를 줄여 전체적인 성능을 향상 시킨다.
+-- 인덱스의 단점 : 
+
+SELECT * FROM DICT;
+
+SELECT * FROM USER_INDEXES;
+
+-- 인덱스 생성 : 오라클에서는 자동으로 생성해주는 인덱스(PK)외에 사용자가 직접 인덱스를 만들때는 CREATE 문 사용
+CREATE INDEX IDX_EMP_SAL ON EMP(SAL);
+
+-- 인덱스 삭제
+DROP INDEX IDX_EMP_SAL;
+
+-- 테이블뷰
+-- 뷰란? 가상 테이블로 부르는 뷰(View)는 하나 이상의 테이블을 조회하는 SELECT 문을 저장한 객체를 의미
+-- SELECT * FROM VW_EMP20;
+SELECT * FROM (
+	SELECT EMPNO, ENAME, JOB, DEPTNO FROM EMP
+	WHERE DEPTNO = 20
+);
+
+CREATE VIEW VW_EMP20
+AS (SELECT EMPNO, ENAME, JOB, DEPTNO FROM EMP
+	WHERE DEPTNO = 20
+);
+
+SELECT * FROM VW_EMP20;
+
+-- 규칙에 따라 순번을 생성하는 시퀀스
+-- 시퀀스 : 오라클 데이터 베이스에서 특정 규칙에 맞는 연속 숫자를 생성하는 객체
+CREATE TABLE DEPT_SEQUENCE
+	AS SELECT * FROM DEPT
+WHERE 1 <> 1;
+
+SELECT * FROM DEPT_SEQUENCE;
+
+-- 시퀀스 생성하기
+CREATE SEQUENCE SEQ_DEPT_SEQUENCE
+INCREMENT BY 10
+START WITH 10
+MAXVALUE 90
+MINVALUE 0
+NOCYCLE 
+CACHE 2;
+
+DROP SEQUENCE SEQ_DEPT_SEQUENCE;
+
+SELECT * FROM USER_SEQUENCES;
+
+INSERT INTO DEPT_SEQUENCE (DEPTNO, DNAME, LOC) VALUES (SEQ_DEPT_SEQUENCE.NEXTVAL, 'DATABASE', 'SEOUL');
+INSERT INTO DEPT_SEQUENCE (DEPTNO, DNAME, LOC) VALUES (SEQ_DEPT_SEQUENCE.NEXTVAL, 'JAVA', 'BUSAN');
+
+SELECT * FROM DEPT_SEQUENCE;
+
+
+DELETE FROM DEPT_SEQUENCE
+WHERE DEPTNO = 20;
+
+DROP TABLE DEPT_SEQUENCE;
+
+CREATE TABLE EMPIDX
+	AS SELECT * FROM EMP;
+
+CREATE INDEX IDX_EMPIDX_EMPNO
+	ON EMPIDX (EMPNO);
+
+SELECT * FROM USER_INDEXES
+WHERE INDEX_NAME = 'IDX_EMPIDX_EMPNO';
+
+SELECT * FROM EMPIDX;
+
